@@ -1,0 +1,23 @@
+<button pButton type="button" icon="pi pi-home" label="Go Home" (click)="navigateToHome()" class="p-mr-3 p-button-rounded"></button> <!-- Home Button -->
+
+
+<p-card>
+    <ng-template #header>
+        <h2>New Person</h2>
+    </ng-template>
+    <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+
+        <p-floatlabel style="margin-bottom: 1.5rem;">
+            <input id="firstName" pInputText formControlName="firstName" style="width: 100%; padding: 0.5rem;" />
+            <label for="firstName">First Name</label>
+        </p-floatlabel>
+
+        <p-floatlabel style="margin-bottom: 1.5rem;">
+            <input id="lastName" pInputText formControlName="lastName" style="width: 100%; padding: 0.5rem;" />
+            <label for="lastName">Last Name</label>
+        </p-floatlabel>
+
+        <p-button label="Submit" type="submit" icon="pi pi-check" [disabled]="!personForm.valid"></p-button>
+
+    </form>
+</p-card>

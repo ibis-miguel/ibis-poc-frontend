@@ -1,0 +1,54 @@
+<div>
+    <button pButton type="button" icon="pi pi-user" label="Go to Person" (click)="navigateToPerson()" class="p-mr-3 p-button-rounded"></button>
+    <button pButton type="button" icon="pi pi-building" label="Go to Bank Branch" (click)="navigateToBankBranch()" class="p-mr-3 p-button-rounded"></button>
+    <button pButton type="button" icon="pi pi-credit-card" label="Go to Account" (click)="navigateToAccount()" class="p-mr-3 p-button-rounded"></button>
+    <button pButton type="button" icon="pi pi-file" label="Go to Record" (click)="navigateToRecord()" class="p-button-rounded"></button>
+  </div>
+
+
+  <br>
+  
+<p-card [ngStyle]="{'display': 'flex', 'justify-content': 'center', 'align-items': 'center', 'height': '50vh'}">
+
+    <ng-template #header>
+        <h2>New Transaction</h2>
+    </ng-template>
+
+    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" [ngStyle]="{'width': '100%', 'max-width': '500px'}">
+        <div class="p-fluid">
+            <p-floatlabel style="margin-bottom: 1.5rem;">
+                <input id="senderAccount" pInputText formControlName="senderAccount" />
+                <label for="senderAccount">Sender</label>
+            </p-floatlabel>
+
+            <p-floatlabel style="margin-bottom: 1.5rem;">
+                <input id="receiverAccount" pInputText formControlName="receiverAccount" />
+                <label for="receiverAccount">Receiver</label>
+            </p-floatlabel>
+
+
+            <p-floatlabel style="margin-bottom: 1rem;">
+                <p-inputnumber mode="currency" id="amount" currency="USD" formControlName="amount"></p-inputnumber>
+                <label for="amount">Amount</label>
+            </p-floatlabel>
+
+            <p-floatlabel variant="on">
+                <textarea id="description" rows="5" cols="30" pTextarea formControlName="description"></textarea>
+                <label for="description">description</label>
+            </p-floatlabel>
+
+            <p-autoComplete formControlName="originatingBranch" [suggestions]="filteredBanks"
+                (completeMethod)="filterBank($event)" placeholder="Bank Branch" field="bankName">
+                <ng-template let-bank pTemplate="item">
+                    <div>
+                        <strong>{{ bank.bankName }}</strong> - {{ bank.branchName }}
+                    </div>
+                </ng-template>
+            </p-autoComplete>
+            <!-- Currency moet komen van account -->
+             <br>
+
+            <p-button label="Submit" type="submit" icon="pi pi-check" [disabled]="!transactionForm.valid"></p-button>
+        </div>
+    </form>
+</p-card>

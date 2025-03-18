@@ -1,0 +1,51 @@
+<button pButton type="button" icon="pi pi-home" label="Go Home" (click)="navigateToHome()" class="p-mr-3 p-button-rounded"></button> <!-- Home Button -->
+
+
+<div class="card flex justify-center">
+    <input type="text" pInputText [(ngModel)]="accountNumber"  placeholder="Enter Account Number" />
+    <button pButton type="button" label="Search Transactions" (click)="fetchTransactions()"></button>
+</div>
+
+<div class="card">
+    <p-table [value]="transactions" [tableStyle]="{'min-width': '60rem'}">
+        <ng-template #header>
+            <tr>
+                <th style="width:20%">
+                    Amount 
+                </th>
+                <th style="width:20%">
+                    Sender />
+                </th>
+                <th style="width:20%">
+                    Receiver 
+                </th>
+                <th style="width:20%">
+                    Bank
+                </th>
+                <th pSortableColumn="date" style="width:20%">
+                    Date <p-sortIcon field="date" />
+                </th>
+                <th style="width:20%">
+                    Description
+                </th>
+                <th style="width:20%">
+                    Status 
+                </th>
+                
+            </tr>
+        </ng-template>
+        <ng-template #body let-transaction>
+            <tr>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.sender }}</td>
+                <td>{{ transaction.receiver }}</td>
+                <td>{{ transaction.bank }}</td>
+                <td>{{ transaction.date | date: 'HH:mm dd-MM-yyyy' : 'America/Curacoa' }}</td>
+                <td>{{ transaction.description }}</td>
+                <td>
+                    <p-tag [value]="transaction.status" [severity]="getSeverity(transaction.status)" />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
