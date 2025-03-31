@@ -34,7 +34,7 @@ jobs:
 
     - name: SSH into server and deploy
       run: |
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} root@64.225.62.232 << 'EOF'
+        ssh -i ${{ secrets.SSH_PRIVATE_KEY }} root@64.225.62.232 << 'EOF'
      
           cd /apps/ibis-poc-frontend || exit
 
