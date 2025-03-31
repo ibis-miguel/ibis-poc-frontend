@@ -1,0 +1,59 @@
+name: CI/CD Pipeline (Build and Deploy to Server)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # or the Node version you're using
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build Angular project
+      run: npm run build --prod  # or `ng build --prod`
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: SSH into server and deploy
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} root@64.225.62.232 << 'EOF'
+          # Navigate to your project directory
+          cd /path/to/your/project || exit
+
+          # Pull the latest code from GitHub
+          git pull origin main
+
+          # Remove any old containers (optional)
+          docker ps -q --filter "name=my-angular-app" | xargs docker stop | xargs docker rm || true
+
+          # Build the Docker image without using cache
+          docker build --no-cache -t my-angular-app:latest .
+
+          # Stop any existing containers (optional)
+          docker-compose down || true
+
+          # Start the container (optional if using docker-compose)
+          docker-compose -f /path/to/docker-compose.yml up -d || docker run -d -p 80:80 my-angular-app:latest
+
+        EOF
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
