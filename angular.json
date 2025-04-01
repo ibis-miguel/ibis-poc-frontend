@@ -41,7 +41,7 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "1kM",
+                  "maximumWarning": "1MB",
                   "maximumError": "1MB"
                 }
               ],

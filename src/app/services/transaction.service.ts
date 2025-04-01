@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 enum Status {
   COMPLETED = "COMPLETED",
@@ -31,7 +32,7 @@ status: Status
   providedIn: 'root'
 })
 export class TransactionService {
-private baseUrl = 'http://localhost:8080/transaction';
+private baseUrl = `${environment.apiUrl}/transaction`;
 
   constructor(private http: HttpClient) {}
 

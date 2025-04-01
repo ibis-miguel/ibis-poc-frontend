@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface BankBranch {
   bankName: string,
@@ -15,7 +16,7 @@ export class BankBranchService {
   private banksSubject = new BehaviorSubject<BankBranch[]>([]);
   banks$ = this.banksSubject.asObservable();
 
-  private baseUrl = 'http://localhost:8080/bank';
+  private baseUrl = `${environment.apiUrl}/bank`;
 
   constructor(private http: HttpClient) { }
 

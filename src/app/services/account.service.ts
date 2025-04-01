@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 enum AccountType {
   SAVINGS = "SAVINGS",
@@ -31,7 +32,7 @@ export interface Account {
   providedIn: 'root'
 })
 export class AccountService {
-  private baseUrl = 'http://localhost:8080/account';
+  private baseUrl = `${environment.apiUrl}/account`;
 
   constructor(private http: HttpClient) { }
 
