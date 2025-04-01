@@ -41,7 +41,7 @@ export class DisplayAccountComponent {
         .subscribe((data) => {
           this.transactions = data;
         }, (error) => {
-            this.toastService.ShowError('Error fetching transactions: ' +  error);
+            this.toastService.ShowError('Error fetching transactions: ' +  error.message);
           // console.error('Error fetching transactions:', error);
         });
     } else {
