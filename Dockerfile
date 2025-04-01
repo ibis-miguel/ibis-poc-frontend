@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
-RUN npm run build --configuration=$ENV
+RUN npm run build --prod
 FROM nginx:alpine
 COPY --from=build /app/dist/quickquid_frontend/browser /usr/share/nginx/html
 EXPOSE 80
