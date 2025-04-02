@@ -18,7 +18,8 @@
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
-            ],"extractLicenses": true,
+            ],
+            "extractLicenses": true,
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -33,6 +34,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
