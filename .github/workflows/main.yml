@@ -6,27 +6,27 @@ on:
       - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  # build:
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20' 
+  #   - name: Set up Node.js
+  #     uses: actions/setup-node@v2
+  #     with:
+  #       node-version: '20' 
 
-    - name: Install dependencies
-      run: npm install
+  #   - name: Install dependencies
+  #     run: npm install
 
-    - name: Build Angular project
-      run: npm run build
+  #   - name: Build Angular project
+  #     run: npm run build
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    # needs: build
 
     steps:
       - name: Checkout code
@@ -40,10 +40,10 @@ jobs:
       - name: SSH into server and clone repo
         run: |
           ssh -o StrictHostKeyChecking=no root@64.225.62.232 << 'EOF'
-            cd apps/ibis-poc-frontend || mkdir -p apps/ibis-poc-frontend && cd apps/ibis-poc-frontend
+            cd apps/ibis-poc-frontend
 
             if [ -d ".git" ]; then
-              git pull origin main
+              git pull origin master
             else
               git clone https://github.com/ibis-miguel/ibis-poc-frontend.git .
             fi
