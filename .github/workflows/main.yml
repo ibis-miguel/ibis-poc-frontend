@@ -39,7 +39,7 @@ jobs:
 
       - name: SSH into server and clone repo
         run: |
-          ssh -o StrictHostKeyChecking=no root@y64.225.62.232 << 'EOF'
+          ssh -o StrictHostKeyChecking=no root@64.225.62.232 << 'EOF'
             cd apps/ibis-poc-frontend || mkdir -p apps/ibis-poc-frontend && cd apps/ibis-poc-frontend
 
             if [ -d ".git" ]; then
